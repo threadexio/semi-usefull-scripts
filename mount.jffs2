@@ -1,0 +1,33 @@
+#!/bin/bash
+
+path=$1
+mpath=$2
+
+if [ ! $# -eq 2 ]; then
+	echo -e "Usage: mount.jffs2 [jffs2 file] [mount path]"
+	exit 0
+fi
+
+# Check if file exists
+if [ ! -f "${path}" ]; then
+        echo "mount.jffs2: File not found"
+        exit 1
+fi
+
+# Check if file is readable
+if [ ! -r "${path}" ]; then
+        echo "mount.jffs2: Permission Denied"
+        exit 2
+fi
+
+sudo rm -rf /dev/mtdblock0
+sudo mknod /dev/mtdblock0 b 31 0
+
+sudo modprobe jffs2
+sudo modprobe mtdram
+sudo modprobe mtdblock
+
+sudo dd if=${path} of=/dev/mtdblock0
+
+sudo mount -t jffs2 /dev/mtdblock0 ${mpath}
+exit 0
