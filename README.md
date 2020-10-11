@@ -1,1 +1,1 @@
-# Some quick script to assist you in your everyday activities
+# Some quick scripts to assist you in your everyday activities
