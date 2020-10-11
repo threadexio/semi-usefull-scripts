@@ -1,0 +1,39 @@
+#!/bin/bash
+
+help="Usage:\n
+mount.luks m [device path] [device name] [mountpoint]\n
+mount.luks u [device name] [mountpoint]\n
+mount.luks l\n
+
+\nOptions:\n
+m - Mount mode\n
+u - Unmount mode\n
+l - List devices\n
+
+\nExamples:\n
+mount.luks m /dev/xda S3cr3t /mnt\n
+mount.luks u  S3cr3t /mnt\n
+mount.luks l\n
+"
+
+if [[ "${1}" == "m" && $# -eq 4 ]]; then
+	/usr/sbin/cryptsetup luksClose "${3}"
+	/usr/sbin/cryptsetup luksOpen "${2}" "${3}"
+	/usr/bin/mount "/dev/mapper/${3}" "${4}"
+	exit 0
+
+elif [[ "${1}" == "u" && $# -eq 3 ]]; then
+	/usr/bin/umount "${3}"
+	/usr/sbin/cryptsetup luksClose "${2}"
+	exit 0
+
+elif [[ "${1}" == "l" ]]; then
+	echo -e "\nDisks:"
+	lsblk -n
+	echo -e "\nActive Devices:"
+	ls /dev/mapper
+	exit 0
+
+else
+	echo -e ${help}
+fi
