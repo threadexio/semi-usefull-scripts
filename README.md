@@ -26,8 +26,8 @@ Examples:
 ### gencert.sh - generates self-signed certificates & certificate signing requests
 ```
 Usage:
-Self-Signed Cert:\t$0 ssc [digest] [days] [RSA bits] [crt out] [key out]
-Cert Signing Request:\t$0 csr [RSA bits] [csr out] [key out]
+Self-Signed Cert: $0 ssc [digest] [days] [RSA bits] [crt out] [key out]
+Cert Signing Request: $0 csr [RSA bits] [csr out] [key out]
 
 Examples:
  gencert.sh ssc sha512 365 4096 cert.crt private.key
