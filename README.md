@@ -33,3 +33,15 @@ Examples:
  gencert.sh ssc sha512 365 4096 cert.crt private.key
  gencert.sh csr 4096 request.csr private.key
  ```
+
+ ### netns.sh - creates a network namespace with access to the network of the given interface
+
+ ```
+ Usage: ./netns.sh [iface]
+
+ Examples:
+  ./netns.sh wlan0 - Creates a namespace that can access wlan0's network (can also be used to access the internet)
+
+Attention:
+  If you run OpenVPN in the namespace your host's /etc/resolv.conf will be overwritten, thus disabling DNS resolving from the host
+ ```
